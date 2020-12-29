@@ -1,15 +1,30 @@
-var express = require('express');
-var app = express();
-app.listen(3000, function() {
-    console.log('start!!! express server on');
-});
+const express = require('express');
+const app = express();
+var bodyParser = require('body-parser');
+const port = 3000;
 
-app.get('/', function(req, res) {
-    res.send("hi guys!");
+app.use(express.static('public'))
+app.use(bodyParser.json())
+app.use(bodyParser.urlencoded({extended:true}))
+app.set('view engine', 'ejs')
+
+app.get('/', (req, res) => {
+    res.sendFile(__dirname +'/public/main.html')
 })
 
-app.use(express.static('public'));
+app.get('/form', (req, res) => {
+    res.sendFile(__dirname + '/public/form.html')
+})
 
-app.get('/main', function(req, res) {
-    res.sendFile(__dirname + "/public/main.html")
+app.post('/email_post', (req, res) => {
+    res.render('email.ejs', {'email' : req.body.email})
+})
+
+app.post('/ajax_send_email', (req, res) => {
+    var responseData = {'resule' : 'ok', 'email' : req.body.email};
+    res.json(responseData);
+})
+
+app.listen(port, (req, res) => {
+    console.log('Server On');
 })
