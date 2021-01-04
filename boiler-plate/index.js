@@ -76,7 +76,6 @@ app.get('/api/users/logout', auth, (req, res) => {
         {_id: req.user._id}, 
         {token: ""}, (err, user) => {
             if(err) return res.json({success: false, err});
-            console.log('asdf');
             return res.status(200).send({
                 success: true
             })
