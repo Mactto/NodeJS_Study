@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+ <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>email form</title>
 </head>
 <body>
-    <form action="email_post" method="post">
+    <form action="email/email_post" method="post">
         email : <input type="text" name="email"><br/>
         submit : <input type="submit">
     </form>
@@ -15,8 +15,8 @@
 
     <script>
         document.querySelector('.ajaxsend').addEventListener('click', function() {
-            var inputdata =document.forms[0].elements[0].value;
-            sendAjax('http://127.0.0.1:3000/ajax_send_email', inputdata);
+            var inputdata = document.forms[0].elements[0].value;
+            sendAjax('/email/ajax', inputdata);
         })
 
         function sendAjax(url, data) {
@@ -29,7 +29,8 @@
             xhr.send(data);
             
             xhr.addEventListener('load', ()=> {
-                var result = xhr.responseText;
+                var result = JSON.parse(xhr.responseText);
+                if(result.result !== "ok") return;
                 document.querySelector(".result").innerHTML = "hello";
             })
         }
