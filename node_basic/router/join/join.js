@@ -21,7 +21,7 @@ router.post('/register', (req, res) => {
     console.log('re');
     connection.query("insert into user (email, name, pw) values ('" + req.body.email + "', '" + req.body.name + "', '"+ req.body.password +"');", (err, rows) => {
         if (err) throw err;
-        res.json({success: true})
+        res.render('welcome.ejs', {'name': req.body.email, 'id': rows.insertId})
     })
 })
 
