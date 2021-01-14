@@ -1,6 +1,6 @@
 const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
-const FacebookStrategy = require('passport-facebook');
+const GoogleStratedy = require('passport-google-oauth20').Strategy;
 const db = require('./database');
 
 passport.serializeUser(function(user, done) {
@@ -35,13 +35,13 @@ passport.use(new LocalStrategy(
     }
 ))
 
-passport.use(new FacebookStrategy({
-    clientID: "아이디",
-    clientSecret: '시크릿',
-    callbackURL: "주소",
-    passReqToCallback: true,
-}, (req, acessToken, refreshToken, profile, done) => {
+passport.use(new GoogleStratedy({
+    clientID: "71330120911-jgu61hvtt4c137s52tat1ntsnvqh5bci.apps.googleusercontent.com",
+    clientSecret: "AIzaSyAF642CLjSJ_vF9UlQfoh3pcpfPOJ2GjHA",
+    callbackURL: "http://localhost:3000/auth/google/callback"
+}, (accessToken, refreshToken, profile, done) => {
     console.log(profile);
-}))
+}
+))
 
 module.exports = passport;

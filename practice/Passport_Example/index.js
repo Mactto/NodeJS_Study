@@ -30,15 +30,14 @@ app.post('/login',
     })
 );
 
-app.get('/facebook',
-    passport.authenticate('facebook', {
-        authType: 'rerequest',
-        scope: ['public_profile', 'email']
+app.get('/auth/google',
+    passport.authenticate('google', {
+        scope: ['https://www.googleapis.com/auth/plus.login']
     })
 );
 
-app.get('/facebook/callback',
-    passport.authenticate('facebook', {
+app.get('/auth/google/callback',
+    passport.authenticate('google', {
         failureRedirect: '/'
     }), (req, res) => {
         res.redirect('/');
